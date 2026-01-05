@@ -32,8 +32,8 @@ Built for a personal e-commerce use case (selling items before moving), this API
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/go-crud-api-reference.git
-cd go-crud-api-reference
+git clone https://github.com/InsomniaCoder/simple-second-hand-ecommerce.git
+cd simple-second-hand-ecommerce
 
 # Install dependencies
 go mod download

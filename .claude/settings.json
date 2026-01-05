@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(go build*)",
+      "Bash(go test*)",
+      "Bash(go fmt*)",
+      "Bash(go vet*)",
+      "Bash(go mod*)",
+      "Bash(go run*)",
+      "Bash(goimports*)",
+      "Bash(git status*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git branch*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(gh pr create*)",
+      "Bash(make*)",
+      "Bash(curl http://localhost*)",
+      "Bash(curl -s http://localhost*)"
+    ]
+  },
+  "hooks": {
+    "postToolUse": ".claude/hooks/post-tool-use.sh",
+    "preCommit": ".claude/hooks/pre-commit.sh"
+  },
+  "testing": {
+    "minCoverage": 80,
+    "targetCoverage": 90,
+    "testCommand": "go test -v -race -cover ./...",
+    "coverageCommand": "go test -coverprofile=coverage.out ./..."
+  },
+  "preCommitChecks": {
+    "format": true,
+    "tests": true,
+    "vet": true,
+    "minCoverage": 80
+  },
+  "commitMessage": {
+    "format": "conventional",
+    "includeIssueNumber": true
+  },
+  "project": {
+    "name": "go-crud-api-reference",
+    "type": "golang",
+    "architecture": "clean-architecture"
+  }
+}
