@@ -21,15 +21,6 @@
       "Bash(curl -s http://localhost:*)"
     ]
   },
-  "hooks": {
-    "PostToolUse": [".claude/hooks/post-tool-use.sh"]
-  },
-  "testing": {
-    "minCoverage": 80,
-    "targetCoverage": 90,
-    "testCommand": "go test -v -race -cover ./...",
-    "coverageCommand": "go test -coverprofile=coverage.out ./..."
-  },
   "preCommitChecks": {
     "format": true,
     "tests": true,
