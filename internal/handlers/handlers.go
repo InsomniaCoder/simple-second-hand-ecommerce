@@ -21,11 +21,11 @@ func NewItemHandlers(service service.ItemService) *ItemHandlers {
 
 // CreateItemRequest represents the create item request body
 type CreateItemRequest struct {
-	Title       string             `json:"title"`
-	Description string             `json:"description"`
-	Price       float64            `json:"price"`
-	Image       string             `json:"image"`
-	Status      models.ItemStatus  `json:"status,omitempty"`
+	Title       string            `json:"title"`
+	Description string            `json:"description"`
+	Price       float64           `json:"price"`
+	Image       string            `json:"image"`
+	Status      models.ItemStatus `json:"status,omitempty"`
 }
 
 // UpdateItemRequest represents the update item request body

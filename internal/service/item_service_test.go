@@ -384,9 +384,9 @@ func TestItemService_UpdateItem(t *testing.T) {
 			setup: func(m *mockRepository) {
 				m.GetByIDFunc = func(ctx context.Context, id string) (*models.Item, error) {
 					return &models.Item{
-						ID:    "test-1",
-						Title: "Original Title",
-						Price: 10.00,
+						ID:     "test-1",
+						Title:  "Original Title",
+						Price:  10.00,
 						Status: models.StatusAvailable,
 					}, nil
 				}
@@ -408,9 +408,9 @@ func TestItemService_UpdateItem(t *testing.T) {
 			setup: func(m *mockRepository) {
 				m.GetByIDFunc = func(ctx context.Context, id string) (*models.Item, error) {
 					return &models.Item{
-						ID:    "test-1",
-						Title: "Item",
-						Price: 10.00,
+						ID:     "test-1",
+						Title:  "Item",
+						Price:  10.00,
 						Status: models.StatusAvailable,
 					}, nil
 				}
@@ -434,9 +434,9 @@ func TestItemService_UpdateItem(t *testing.T) {
 			setup: func(m *mockRepository) {
 				m.GetByIDFunc = func(ctx context.Context, id string) (*models.Item, error) {
 					return &models.Item{
-						ID:    "test-1",
-						Title: "Old Title",
-						Price: 10.00,
+						ID:     "test-1",
+						Title:  "Old Title",
+						Price:  10.00,
 						Status: models.StatusAvailable,
 					}, nil
 				}
@@ -483,9 +483,9 @@ func TestItemService_UpdateItem(t *testing.T) {
 			setup: func(m *mockRepository) {
 				m.GetByIDFunc = func(ctx context.Context, id string) (*models.Item, error) {
 					return &models.Item{
-						ID:    "test-1",
-						Title: "Item",
-						Price: 10.00,
+						ID:     "test-1",
+						Title:  "Item",
+						Price:  10.00,
 						Status: models.StatusAvailable,
 					}, nil
 				}
@@ -502,9 +502,9 @@ func TestItemService_UpdateItem(t *testing.T) {
 			setup: func(m *mockRepository) {
 				m.GetByIDFunc = func(ctx context.Context, id string) (*models.Item, error) {
 					return &models.Item{
-						ID:    "test-1",
-						Title: "Item",
-						Price: 10.00,
+						ID:     "test-1",
+						Title:  "Item",
+						Price:  10.00,
 						Status: models.StatusAvailable,
 					}, nil
 				}

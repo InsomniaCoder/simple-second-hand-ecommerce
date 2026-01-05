@@ -60,9 +60,24 @@ go mod download
 # Run tests
 make test
 
-# Start the server
+# Start the server (automatically preloads items from CSV)
 make run
 ```
+
+### Data Preloading
+
+The application automatically preloads 3 sample items from `data/items.csv` on startup:
+- Vintage Leather Jacket ($150)
+- MacBook Pro 2019 ($800)
+- Ikea Standing Desk ($250)
+
+You can customize the CSV file path using the `CSV_DATA_PATH` environment variable:
+
+```bash
+CSV_DATA_PATH=/path/to/custom/items.csv go run cmd/api/main.go
+```
+
+If no CSV file is found, the application starts with an empty repository.
 
 ### Development Workflow
 
@@ -123,11 +138,13 @@ For complete API documentation, see [docs/API.md](docs/API.md).
 │   ├── commands/        # Slash commands
 │   └── hooks/           # Automation hooks
 ├── cmd/api/             # Application entry point
+├── data/                # Data files (CSV preload)
 ├── internal/
 │   ├── models/          # Domain models
 │   ├── repository/      # Data access layer
 │   ├── service/         # Business logic
-│   └── handlers/        # HTTP handlers
+│   ├── handlers/        # HTTP handlers
+│   └── loader/          # CSV data loader
 ├── pkg/testutil/        # Test utilities
 ├── docs/                # Documentation
 └── scripts/             # Utility scripts
