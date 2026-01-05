@@ -9,11 +9,11 @@ import (
 
 // Service errors
 var (
-	ErrInvalidInput  = errors.New("invalid input")
-	ErrItemNotFound  = errors.New("item not found")
-	ErrUpdateFailed  = errors.New("failed to update item")
-	ErrDeleteFailed  = errors.New("failed to delete item")
-	ErrCreateFailed  = errors.New("failed to create item")
+	ErrInvalidInput = errors.New("invalid input")
+	ErrItemNotFound = errors.New("item not found")
+	ErrUpdateFailed = errors.New("failed to update item")
+	ErrDeleteFailed = errors.New("failed to delete item")
+	ErrCreateFailed = errors.New("failed to create item")
 )
 
 // ItemService defines business logic operations for items

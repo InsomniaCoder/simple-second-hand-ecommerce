@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/InsomniaCoder/simple-second-hand-ecommerce/internal/handlers"
+	"github.com/InsomniaCoder/simple-second-hand-ecommerce/internal/loader"
 	"github.com/InsomniaCoder/simple-second-hand-ecommerce/internal/repository"
 	"github.com/InsomniaCoder/simple-second-hand-ecommerce/internal/service"
 )
@@ -24,6 +25,26 @@ func main() {
 	// Initialize dependencies
 	repo := repository.NewMemoryRepository()
 	svc := service.NewItemService(repo)
+
+	// Preload items from CSV
+	csvLoader := loader.NewCSVLoader(repo)
+	csvPath := os.Getenv("CSV_DATA_PATH")
+	if csvPath == "" {
+		csvPath = "data/items.csv"
+	}
+
+	if _, err := os.Stat(csvPath); err == nil {
+		ctx := context.Background()
+		count, err := csvLoader.LoadFromFile(ctx, csvPath)
+		if err != nil {
+			log.Printf("Warning: Failed to preload items from CSV: %v", err)
+		} else {
+			log.Printf("Successfully preloaded %d items from %s", count, csvPath)
+		}
+	} else {
+		log.Printf("CSV file not found at %s, starting with empty repository", csvPath)
+	}
+
 	router := handlers.SetupRoutes(svc)
 
 	// Create HTTP server

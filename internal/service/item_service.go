@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/InsomniaCoder/simple-second-hand-ecommerce/internal/models"
 	"github.com/InsomniaCoder/simple-second-hand-ecommerce/internal/repository"
+	"github.com/google/uuid"
 )
 
 type itemService struct {
