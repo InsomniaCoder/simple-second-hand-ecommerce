@@ -20,6 +20,25 @@ Built for a personal e-commerce use case (selling items before moving), this API
 - Image URL
 - Status (available, booked, sold)
 
+## Setup
+
+### Install Git Pre-commit Hook (Optional but Recommended)
+
+The pre-commit hook validates code before commits. To enable it:
+
+```bash
+# Create symlink to enable git hook
+ln -s ../../.claude/hooks/pre-commit.sh .git/hooks/pre-commit
+
+# Or copy the file
+cp .claude/hooks/pre-commit.sh .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+**Note**: This is a Git hook (runs on `git commit`), separate from Claude Code's `PostToolUse` hook which runs automatically after file edits.
+
+---
+
 ## Quick Start
 
 ### Prerequisites
@@ -77,8 +96,8 @@ This project includes comprehensive Claude Code automation:
 - `api-tester` - Automated endpoint testing
 
 ### Hooks
-- **post-tool-use**: Auto-format Go files after edits
-- **pre-commit**: Validate tests before commits
+- **PostToolUse** (Claude Code hook): Auto-format Go files after edits
+- **pre-commit** (Git hook): Validate tests before commits - requires manual setup (see below)
 
 For detailed automation documentation, see [docs/AUTOMATION.md](docs/AUTOMATION.md).
 
