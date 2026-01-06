@@ -22,8 +22,38 @@ func main() {
 		port = "8080"
 	}
 
-	// Initialize dependencies
-	repo := repository.NewMemoryRepository()
+	// Initialize repository based on configuration
+	dbMode := os.Getenv("DB_MODE")
+	dbPath := os.Getenv("DB_PATH")
+
+	var repo repository.ItemRepository
+	var err error
+
+	if dbMode == "file" && dbPath != "" {
+		// File-based persistence
+		repo, err = repository.NewBboltRepository(dbPath)
+		if err != nil {
+			log.Fatalf("Failed to initialize bbolt repository: %v", err)
+		}
+		log.Printf("Using bbolt repository with file persistence: %s", dbPath)
+	} else {
+		// In-memory mode (default)
+		repo, err = repository.NewBboltRepository(":memory:")
+		if err != nil {
+			log.Fatalf("Failed to initialize bbolt repository: %v", err)
+		}
+		log.Printf("Using bbolt repository in in-memory mode")
+	}
+
+	// Ensure database is closed on shutdown
+	defer func() {
+		if closer, ok := repo.(interface{ Close() error }); ok {
+			if err := closer.Close(); err != nil {
+				log.Printf("Error closing repository: %v", err)
+			}
+		}
+	}()
+
 	svc := service.NewItemService(repo)
 
 	// Preload items from CSV
