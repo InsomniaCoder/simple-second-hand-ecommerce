@@ -5,7 +5,70 @@ Reference implementation demonstrating Boris's Claude Code best practices throug
 
 **Use Case**: Personal e-commerce API for selling items before moving countries
 **Architecture**: Clean architecture with interface-driven design
+**Storage**: bbolt embedded key-value database with optional persistence
 **Testing**: >80% coverage enforced by automation
+
+---
+
+## Storage Configuration
+
+### Database: bbolt
+This project uses [bbolt](https://github.com/etcd-io/bbolt), a pure-Go embedded key-value database maintained by the etcd team. Bbolt provides:
+- ACID transactions with simple API
+- Optional persistence (in-memory or file-based)
+- Thread-safe operations
+- Single-file storage
+- No external dependencies
+
+### Configuration
+
+Control storage mode via environment variables:
+
+| Variable | Values | Default | Description |
+|----------|--------|---------|-------------|
+| `DB_MODE` | `memory` or `file` | `memory` | Storage mode |
+| `DB_PATH` | File path | - | Database file location (required for `file` mode) |
+| `CSV_DATA_PATH` | File path | `data/items.csv` | CSV file for preloading items |
+
+### Usage Examples
+
+```bash
+# In-memory mode (default) - data lost on restart
+go run cmd/api/main.go
+
+# File-based persistence - data survives restarts
+DB_MODE=file DB_PATH=./data/items.db go run cmd/api/main.go
+
+# File persistence + CSV preloading
+DB_MODE=file DB_PATH=./data/items.db CSV_DATA_PATH=./data/items.csv go run cmd/api/main.go
+```
+
+### Implementation Details
+
+**Repository Interface** (`internal/repository/repository.go`):
+- All storage backends implement the `ItemRepository` interface
+- Current implementations: `bbolt.go` (recommended), `memory.go` (deprecated)
+
+**Serialization**:
+- Uses `encoding/json` for Item marshaling
+- Consistent with existing JSON struct tags
+- Simple and maintainable
+
+**Concurrency**:
+- bbolt provides built-in ACID transaction support
+- No manual locking required
+- Thread-safe by design
+
+### Migration from Map-Based Storage
+
+The project previously used a simple `map[string]*models.Item` with `sync.RWMutex`. The bbolt implementation:
+- ✅ Maintains the same interface (`ItemRepository`)
+- ✅ All existing tests pass without modification
+- ✅ Adds optional persistence capability
+- ✅ Provides ACID guarantees
+- ✅ Better production readiness
+
+The old `memory.go` implementation is kept for reference but should not be used for new development.
 
 ---
 
