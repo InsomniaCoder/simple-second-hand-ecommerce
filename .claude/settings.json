@@ -20,20 +20,5 @@
       "Bash(curl http://localhost:*)",
       "Bash(curl -s http://localhost:*)"
     ]
-  },
-  "preCommitChecks": {
-    "format": true,
-    "tests": true,
-    "vet": true,
-    "minCoverage": 80
-  },
-  "commitMessage": {
-    "format": "conventional",
-    "includeIssueNumber": true
-  },
-  "project": {
-    "name": "simple-second-hand-ecommerce",
-    "type": "golang",
-    "architecture": "clean-architecture"
   }
 }
